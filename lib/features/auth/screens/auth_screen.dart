@@ -32,14 +32,17 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   void signUpUser() {
-    print("Email: ${_emailController.text}");
-    print("Password: ${_passwordController.text}");
-    print("Name: ${_nameController.text}");
-    print("Context in signUpUser: $context");
     authService.signUpUser(
         email: _emailController.text,
         password: _passwordController.text,
         name: _nameController.text,
+        context: context);
+  }
+
+  void signInUser() {
+    authService.signInUser(
+        email: _emailController.text,
+        password: _passwordController.text,
         context: context);
   }
 
@@ -141,7 +144,13 @@ class _AuthScreenState extends State<AuthScreen> {
                           hintText: "Password",
                         ),
                         const SizedBox(height: 10),
-                        CustomButton(text: "Sign In", onTap: () {})
+                        CustomButton(
+                            text: "Sign In",
+                            onTap: () {
+                              if (_signInFromKey.currentState!.validate()) {
+                                signInUser();
+                              }
+                            })
                       ],
                     )),
               ),
